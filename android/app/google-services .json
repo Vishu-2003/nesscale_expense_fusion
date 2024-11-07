@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "279063831022",
+    "project_id": "expense-fusion-8de37",
+    "storage_bucket": "expense-fusion-8de37.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:279063831022:android:5581a11924ca2557512eff",
+        "android_client_info": {
+          "package_name": "com.example.expense_fusion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_omm2HnSeyMe4xbqVXdE2LkPTvUufbbg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
