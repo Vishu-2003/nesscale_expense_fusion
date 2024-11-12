@@ -24,10 +24,13 @@ TextEditingController accountController=TextEditingController();
 
 String selectedAccount= 'selected account';
 void updateSelectedAccount(String account){
- selectedAccount=account;
  accountController.text=account;
  update();
 }
+  void updateSelectedAccountId(String account){
+    selectedAccount=account;
+    update();
+  }
 DateTime? selectedDate=DateTime.now();
 void updateSelectedDate(DateTime date){
   selectedDate=date;
@@ -36,7 +39,7 @@ void updateSelectedDate(DateTime date){
 Future<void> addIncome()async {
  Get.context?.loaderOverlay.show();
  PostIncomeModel income=PostIncomeModel(
-   account: accountController.text.trim(),
+   account:selectedAccount.trim(),
    date: selectedDate?.getDefaultDateFormat,
    amount: addAmountController.text.trim(),
    writeNote: addNoteController.text.trim()
@@ -51,13 +54,11 @@ Future<void> addIncome()async {
  }
 
 }
-  List<GetSpaceModel> space=[];
   List<GetAccountModel> account=[];
   Future<void>getAccounts()async {
-  space= await homeRepository.getSpace();
   account=await homeRepository.getAccount();
-
-}
+  update();
+  }
 
 
 

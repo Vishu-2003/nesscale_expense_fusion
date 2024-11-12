@@ -133,7 +133,7 @@
                       child: CText('Select Account',style: TextThemeX.text18.copyWith(fontWeight: FontWeight.w500,color: white),)),
                   Expanded(
                     child: ListView.builder(
-                        itemCount:controller.space.length,
+                        itemCount:controller.account.length,
                         itemBuilder: (context,index){
                           return Container(
                             decoration: BoxDecoration(
@@ -144,13 +144,15 @@
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 5),
-                                  child: CText(controller.space[index].spaceName,style:TextThemeX.text16.copyWith(color:Primarycolor,fontSize: 12),),
+                                  child: CText(controller.account[index].space.toString(),style:TextThemeX.text16.copyWith(color:Primarycolor,fontSize: 12),),
                                 ),
                                ListTile(
                                   title: CText(controller.account[index].accountName.toString(),style:TextThemeX.text16.copyWith(color: white),),
                                   trailing: selectIcon(AppIcon.unselect),
                                   onTap: (){
                                     controller.updateSelectedAccount(controller.account[index].accountName.toString());
+                                    controller.updateSelectedAccountId(controller.account[index].name.toString());
+                                    print(controller.selectedAccount);
                                     Get.back();
                                   },
                                 ),

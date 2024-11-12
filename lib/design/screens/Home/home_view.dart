@@ -24,18 +24,6 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  bool isLoading = true;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    Future.delayed(Duration(seconds: 5), () {
-      setState(() {
-        isLoading = false;
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
@@ -54,7 +42,7 @@ class _HomeViewState extends State<HomeView> {
                       Scaffold.of(context).openDrawer();
                     },
                   );
-                }, 
+                },
               ),
             ),
             backgroundColor: bg,
@@ -65,76 +53,44 @@ class _HomeViewState extends State<HomeView> {
                   physics: defaultScrollablePhysics,
                   child: Column(
                     children: AnimationConfiguration.toStaggeredList(
-                      duration: Duration(seconds: 2),
+                      duration: Duration(seconds:1),
                       childAnimationBuilder: (widget) =>
-                          SlideAnimation(child: FadeInAnimation(child: widget)),
+                          SlideAnimation(
+                              verticalOffset: 300,
+                              child: FadeInAnimation(child: widget)),
                       children: [
-                        const SizedBox(
-                          height: 1,
-                        ),
+                        const SizedBox(height: 1),
                         Center(
                           child: controller.isLoading
-                              ? TextPlaceholder(
-                                  width: 94,
-                                  height: 19,
-                                ).showShimmer()
-                              : CText(
-                                  'Total Amount',
-                                  style: TextThemeX.text16
-                                      .copyWith(fontWeight: FontWeight.w500),
-                                ).showShimmer(),
-                        ),
+                              ? TextPlaceholder(width: 94, height: 19,).showShimmer()
+                              : CText('Total Amount', style: TextThemeX.text16.copyWith(fontWeight: FontWeight.w500),).showShimmer(),),
                         Center(
                           child: controller.isLoading
                               ? Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: TextPlaceholder(
-                                    width: 164,
-                                    height: 38,
-                                  ).showShimmer(),
-                                )
-                              : CText(
-                                  '₹25,520.00',
-                                  style: TextThemeX.text20.copyWith(
-                                      fontWeight: FontWeight.w800,
-                                      fontSize: 32),
-                                ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                                  child: TextPlaceholder(width: 164, height: 38,).showShimmer(),)
+                              : CText('₹25,520.00', style: TextThemeX.text20.copyWith(fontWeight: FontWeight.w800, fontSize: 32),),),
+                        const SizedBox(height: 10,),
                         controller.isLoading
                             ? Row(
                                 children: [
                                   Expanded(
                                     child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 16, right: 6),
-                                      child: ContainerPlaceholder(
-                                        height: 208,
-                                        borderRadius: 16,
-                                        width: 172,
-                                      ).showShimmer(),
+                                      padding: const EdgeInsets.only(left: 16, right: 6),
+                                      child: ContainerPlaceholder(height: 208, borderRadius: 16, width: 172,).showShimmer(),
                                     ),
                                   ),
                                   Expanded(
                                     child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 6, right: 16),
-                                      child: ContainerPlaceholder(
-                                        height: 208,
-                                        borderRadius: 16,
-                                        width: 172,
-                                      ).showShimmer(),
+                                      padding: const EdgeInsets.only(left: 6, right: 16),
+                                      child: ContainerPlaceholder(height: 208, borderRadius: 16, width: 172,).showShimmer(),
                                     ),
                                   ),
                                 ],
                               )
-                            : _buildincomeexpensecards(),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        _buildChartInfoDropdown(context, controller),
+                            : buildIncomeExpenseCards(),
+                        SizedBox(height: 20,),
+                        buildChartInfoDropdown(context, controller),
                       ],
                     ),
                   ),
@@ -143,7 +99,7 @@ class _HomeViewState extends State<HomeView> {
                   bottom: 20,
                   left: 0,
                   right: 0,
-                  child: _buildbuttons(controller),
+                  child: buildButtons(controller),
                 )
               ],
             ),
@@ -152,12 +108,12 @@ class _HomeViewState extends State<HomeView> {
   }
 }
 
-Widget _buildincomeexpensecards() {
+Widget buildIncomeExpenseCards() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceAround,
     children: [
       Expanded(
-          child: _BuildCard(
+          child: buildCard(
               title: 'Income',
               color: Secondarycolor,
               currentmonth: '₹10,75,520',
@@ -167,7 +123,7 @@ Widget _buildincomeexpensecards() {
               right: 6,
               bgcolor: Colors.transparent)),
       Expanded(
-          child: _BuildCard(
+          child: buildCard(
         title: 'Expense',
         color: LightPrimarycolor,
         currentmonth: '₹10,25,654',
@@ -181,7 +137,7 @@ Widget _buildincomeexpensecards() {
   );
 }
 
-Widget _BuildCard({
+Widget buildCard({
   required String title,
   required Color color,
   required String currentmonth,
@@ -266,7 +222,7 @@ Widget _BuildCard({
   );
 }
 
-Widget _buildChartInfoDropdown(
+Widget buildChartInfoDropdown(
     BuildContext context, HomeController controller) {
   return Container(
     width: double.infinity,
@@ -293,10 +249,10 @@ Widget _buildChartInfoDropdown(
                     border: Border.all(color: grey1)),
                 child: Row(
                   children: [
-                    _builddropdown1(
+                    buildDropDown1(
                         text: '',
                         boarder: Border(right: BorderSide(color: grey1))),
-                    _builddropdown2(text: ''),
+                    buildDropDown2(text: ''),
                   ],
                 ),
               ),
@@ -338,14 +294,14 @@ Widget _buildChartInfoDropdown(
                   ],
                 ),
               ),
-        _buildchart(controller),
+        buildChart(controller),
         _buildList(controller),
       ],
     ),
   );
 }
 
-Widget _buildchart(HomeController controller) {
+Widget buildChart(HomeController controller) {
   final List<FlSpot> dummyData1 = List.generate(8, (index) {
     return FlSpot(index.toDouble(), index * Random().nextDouble());
   });
@@ -478,7 +434,7 @@ Widget _buildList(HomeController controller) {
             )),
         Expanded(
           child: ListView.builder(
-              itemCount: 3,
+              itemCount:controller.account.length,
               itemBuilder: (context, index) {
                 return Container(
                   padding: EdgeInsets.all(4),
@@ -498,7 +454,7 @@ Widget _buildList(HomeController controller) {
                         ).showShimmer(),
                       )
                           :  CText(
-                        'Office Expense',
+                        controller.account[index].space.toString(),
                         style: TextThemeX.text16
                             .copyWith(color: Primarycolor, fontSize: 12),
                       ),
@@ -512,7 +468,7 @@ Widget _buildList(HomeController controller) {
                           ).showShimmer(),
                         )
                             :  CText(
-                          'HDFC Bank',
+                          controller.account[index].accountName.toString(),
                           style: TextThemeX.text16.copyWith(color: white),
                         ),
                         trailing:controller.isLoading
@@ -525,38 +481,11 @@ Widget _buildList(HomeController controller) {
                         )
                             :
                         CText(
-                          '₹10,25,645',
+                          controller.account[index].amount.toString(),
                           style: TextThemeX.text16.copyWith(
                               color: Primarycolor, fontWeight: FontWeight.w600),
                         ),
                       ),
-                      ListTile(
-                        title: controller.isLoading
-                            ? Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextPlaceholder(
-                            width: 79,
-                            height: 19,
-                          ).showShimmer(),
-                        )
-                            :CText(
-                          'Cash',
-                          style: TextThemeX.text16.copyWith(color: white),
-                        ),
-                        trailing: controller.isLoading
-                            ? Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextPlaceholder(
-                            width: 78,
-                            height: 19,
-                          ).showShimmer(),
-                        )
-                            :CText(
-                          '₹4,32,322',
-                          style: TextThemeX.text16.copyWith(
-                              color: Primarycolor, fontWeight: FontWeight.w600),
-                        ),
-                      )
                     ],
                   ),
                 );
@@ -567,7 +496,7 @@ Widget _buildList(HomeController controller) {
   );
 }
 
-Widget _buildbuttons(HomeController controller) {
+Widget buildButtons(HomeController controller) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceAround,
     children: [
@@ -576,7 +505,8 @@ Widget _buildbuttons(HomeController controller) {
           margin: EdgeInsets.all(5),
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  backgroundColor: Secondarycolor, fixedSize: Size(150, 52)),
+                  backgroundColor: Secondarycolor, fixedSize: Size(150, 52),
+              ),
               onPressed: () {
                 Get.toNamed(Routes.INCOME);
               },
@@ -626,7 +556,7 @@ Widget _buildbuttons(HomeController controller) {
   );
 }
 
-Widget _builddropdown1({required String text, Border? boarder}) {
+Widget buildDropDown1({required String text, Border? boarder}) {
   return Expanded(
     child: Container(
       decoration: BoxDecoration(border: boarder),
@@ -654,7 +584,7 @@ Widget _builddropdown1({required String text, Border? boarder}) {
   );
 }
 
-Widget _builddropdown2({required String text, Border? boarder}) {
+Widget buildDropDown2({required String text, Border? boarder}) {
   return Expanded(
     child: Container(
       padding: EdgeInsets.all(8),

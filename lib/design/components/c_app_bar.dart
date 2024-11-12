@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
+import '../../core/routes/app_pages.dart';
 import '../../utils/app_assets.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_text_theme.dart';
@@ -69,6 +70,10 @@ class CBackButton extends StatelessWidget {
         if (navigator?.canPop() ?? false) {
           Get.back();
         }
+        else {
+          Get.offAllNamed(Routes.HOME);
+        }
+
       },
     );
   }

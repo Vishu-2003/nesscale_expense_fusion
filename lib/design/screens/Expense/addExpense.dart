@@ -30,7 +30,7 @@ class _addExpenseState extends State<addExpense> {
           return Scaffold(
             backgroundColor:  bg,
             appBar: CAppBar(
-              title: 'Add Income',
+              title: 'Add Expense',
               showtrailing: false,
               showleading: true,
               leading: CBackButton(),
@@ -133,7 +133,7 @@ Future<void> BottomSheet(BuildContext context,ExpenseController controller){
                     child: CText('Select Account',style: TextThemeX.text18.copyWith(fontWeight: FontWeight.w500,color: white),)),
                 Expanded(
                   child: ListView.builder(
-                      itemCount:controller.space.length,
+                      itemCount:controller.account.length,
                       itemBuilder: (context,index){
                         return Container(
                           decoration: BoxDecoration(
@@ -144,7 +144,7 @@ Future<void> BottomSheet(BuildContext context,ExpenseController controller){
                             children: [
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 5),
-                                child: CText(controller.space[index].spaceName,style:TextThemeX.text16.copyWith(color:Primarycolor,fontSize: 12),),
+                                child: CText(controller.account[index].space.toString(),style:TextThemeX.text16.copyWith(color:Primarycolor,fontSize: 12),),
                               ),
                               ListTile(
                                 title: CText(controller.account[index].accountName.toString(),style:TextThemeX.text16.copyWith(color: white),),

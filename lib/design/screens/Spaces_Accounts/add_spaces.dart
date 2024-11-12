@@ -51,7 +51,7 @@ class _spacesState extends State<spaces> {
                        backgroundColor: Primarycolor,
                        fixedSize:Size(334, 56),
                      ),
-                     child: CText('Next',style: TextThemeX.text16.copyWith(fontWeight: FontWeight.w500,color: bg),),
+                     child: CText('Submit',style: TextThemeX.text16.copyWith(fontWeight: FontWeight.w500,color: bg),),
                    ),
                  ))
                ],

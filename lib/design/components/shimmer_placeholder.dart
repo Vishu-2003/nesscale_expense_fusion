@@ -1,5 +1,6 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../utils/app_colors.dart';
 import '../../utils/constants.dart';
@@ -28,7 +29,7 @@ class ContainerPlaceholder extends StatelessWidget{
       width: width,
       padding: padding,
       decoration: BoxDecoration(
-      color: white.withOpacity(Opacity??0.3),
+      color: Colors.grey.withOpacity(Opacity??0.4),
       borderRadius: BorderRadius.circular(borderRadius)
      ),
     );
@@ -39,11 +40,14 @@ class TextPlaceholder extends StatelessWidget{
   final double? height;
   final double? width;
   final double borderRadius;
+  final double? Opacity;
   const TextPlaceholder ({
     super.key,
     this.height,
     this.width,
     this.borderRadius=12,
+    this.Opacity,
+
 
   });
   @override
@@ -52,7 +56,7 @@ class TextPlaceholder extends StatelessWidget{
       height: height,
       width: width,
       decoration: BoxDecoration(
-        color: white.withOpacity(0.3),
+        color: Colors.grey.withOpacity(Opacity??0.4),
           borderRadius: BorderRadius.circular(borderRadius)
       ),
     );

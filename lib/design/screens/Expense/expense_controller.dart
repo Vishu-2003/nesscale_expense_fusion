@@ -30,11 +30,10 @@ class ExpenseController extends GetxController{
     selectedDate=date;
     update();
   }
-  List<GetSpaceModel> space=[];
   List<GetAccountModel> account=[];
   Future<void>getAccounts()async {
-    space= await homeRepository.getSpace();
     account=await homeRepository.getAccount();
+    update();
   }
   Future<void>addExpense()async{
     Get.context?.loaderOverlay.show();

@@ -1,5 +1,8 @@
 part of 'api_interceptor.dart';
 class LoggingInterceptor implements Interceptor {
+  LoggingInterceptor._();
+  factory LoggingInterceptor() => _instance;
+  static final LoggingInterceptor _instance = LoggingInterceptor._();
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     debugPrint("🟡 --> ${options.method.toUpperCase()} ${options.baseUrl}${options.path} 🟡");
@@ -33,10 +36,6 @@ class LoggingInterceptor implements Interceptor {
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     debugPrint(
         "🟢 <-- ${response.statusCode} ${response.requestOptions.baseUrl + response.requestOptions.path} 🟢");
-
-    // debugPrint("Headers:");
-    // response.headers.forEach((k, v) => debugPrint('$k: $v'));
-
     debugPrint("Response: ${response.data}");
     debugPrint("<-- END HTTP");
 

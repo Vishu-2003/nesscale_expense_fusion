@@ -4,6 +4,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 part 'login_interceptors.dart';
 
 class ApiInterceptor implements Interceptor{
+  ApiInterceptor._();
+  factory ApiInterceptor() => _instance;
+  static final ApiInterceptor _instance = ApiInterceptor._();
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {

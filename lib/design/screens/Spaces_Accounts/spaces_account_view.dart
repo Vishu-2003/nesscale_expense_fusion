@@ -17,6 +17,7 @@ import '../../../utils/app_colors.dart';
 import '../../../utils/app_text_theme.dart';
 import '../../../utils/select_image.dart';
 import '../../components/c_text.dart';
+import 'account_controller.dart';
 
 class spacesaccount extends StatefulWidget {
   const spacesaccount({super.key});
@@ -52,7 +53,7 @@ class _spacesaccountState extends State<spacesaccount> {
                   children: [
                     _buildbutton(
                         ontap: () {
-                          Get.offNamed(Routes.Space);
+                          Get.toNamed(Routes.Space);
                         },
                         text: 'Add Space',
                         color: Secondarycolor,
@@ -68,7 +69,7 @@ class _spacesaccountState extends State<spacesaccount> {
                         )),
                     _buildbutton(
                       ontap: () {
-                       // Get.toNamed(Routes.AddAccount);
+                       Get.toNamed(Routes.AddAccount);
                       },
                       text: 'Add Account',
                       color: LightPrimarycolor,
@@ -95,11 +96,11 @@ class _spacesaccountState extends State<spacesaccount> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
-                        child:RefreshIndicator.adaptive(
+                        child:RefreshIndicator(
                           backgroundColor: bg,
                           onRefresh: controller.init,
                           child:ListView.builder(
-                              itemCount: controller.space.length,
+                              itemCount: controller.account.length,
                               itemBuilder: (context, index) {
                                 return Container(
                                   padding: const EdgeInsets.all(2),
@@ -113,7 +114,7 @@ class _spacesaccountState extends State<spacesaccount> {
                                       Padding(
                                         padding: const EdgeInsets.only(left: 15),
                                         child: CText(
-                                          controller.space[index].spaceName,
+                                          controller.account[index].space.toString(),
                                           style: TextThemeX.text16.copyWith(
                                             color: Primarycolor,
                                           ),
@@ -121,7 +122,7 @@ class _spacesaccountState extends State<spacesaccount> {
                                       ),
                                       ListTile(
                                         title: CText(
-                                          controller.account[index].accountName,
+                                          controller.account[index].accountName.toString(),
                                           style: TextThemeX.text16
                                               .copyWith(color: white, fontSize: 14),
                                         ),
@@ -135,12 +136,22 @@ class _spacesaccountState extends State<spacesaccount> {
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             selectIcon(AppIcon.delete,
-                                                onPressed: () {}),
+                                                onPressed: () {
+                                                 controller.deleteAccount(
+                                                     accountName: controller.account[index].accountName.toString(),
+                                                     space: controller.account[index].space.toString());
+                                                }),
                                             SizedBox(
                                               width: 15,
                                             ),
                                             selectIcon(AppIcon.edit,
-                                                onPressed: () {})
+                                                onPressed: () {
+                                               final result = Get.toNamed(Routes.AddAccount,arguments: {
+                                                  'space':controller.account[index].space,
+                                                  'accountName': controller.account[index].accountName,
+                                                  'amount': controller.account[index].amount,
+                                                });
+                                                })
                                           ],
                                         ),
                                       ),

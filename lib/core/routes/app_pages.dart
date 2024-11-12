@@ -56,7 +56,6 @@ static final List<GetPage<dynamic>> routes = [
  GetPage(
      name:_paths.SPACESAccount,
      page:()=>const spacesaccount(),
-
  ),
  GetPage(
      name:_paths.Transaction,
@@ -65,6 +64,10 @@ static final List<GetPage<dynamic>> routes = [
  GetPage(
      name:_paths.AddAccount,
      page: ()=>const addaccount(),
+     binding:  BindingsBuilder((){
+       Get.lazyPut<AccountController>(()=>AccountController(),
+       );
+     }),
 
  ),
  GetPage(

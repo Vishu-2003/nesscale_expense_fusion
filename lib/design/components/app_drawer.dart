@@ -61,13 +61,13 @@ class _AppDrawerState extends State<AppDrawer> {
                 children: [
                   ListTile(
                     onTap: (){
-                     Get.toNamed(Routes.SPACESACCOUNT);
+                    Get.offNamed(Routes.SPACESACCOUNT);
                     },
                     leading:selectIcon(AppIcon.spaces),
                     title:CText('Spaces & Accounts',style: TextThemeX.text18.copyWith(fontWeight: FontWeight.w400,color: white),) ),
                   ListTile(
                     onTap: (){
-                     Get.toNamed(Routes.Transaction);
+                     Get.offNamed(Routes.Transaction);
                     },
                     leading: selectIcon(AppIcon.transaction),
                       title:CText('Transactions',style: TextThemeX.text18.copyWith(fontWeight: FontWeight.w400,color: white),)),

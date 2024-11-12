@@ -51,6 +51,7 @@ dependencies:
   flutter_native_splash: ^2.4.2
   another_flutter_splash_screen: ^1.2.1
   flutter_animate: ^4.5.0
+  shrink_animation_button: ^1.0.1
 
 
 dev_dependencies:

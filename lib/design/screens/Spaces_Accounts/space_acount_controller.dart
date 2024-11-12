@@ -1,4 +1,6 @@
 import 'package:expense_fusion/core/models/get_space_model.dart';
+import 'package:expense_fusion/core/models/response_model.dart';
+import 'package:expense_fusion/utils/extensions.dart';
 import 'package:get/get.dart';
 
 import '../../../core/models/get_account_model.dart';
@@ -29,6 +31,14 @@ class SpaceAccountController extends GetxController{
   Future<void>getAccount()async{
     account=await _homeRepository.getAccount();
     update();
+  }
+  Future<void> deleteAccount({required String accountName,required String space})async{
+    GetResponseModel? response=await _homeRepository.deleteAccount(accountName:accountName, space: space);
+    if(response?.message!=null){
+      await response?.message?.successSnackbar();
+      update();
+    }
+
   }
 
 }

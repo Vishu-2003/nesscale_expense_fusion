@@ -1,15 +1,19 @@
 import 'package:get/get.dart';
 
+import '../../../core/models/get_account_model.dart';
+import '../../../core/repositories/home_repository.dart';
+
 class HomeController extends GetxController{
+  final HomeRepository homeRepository=Get.find<HomeRepository>();
   bool isLoading=false;
+  List<GetAccountModel> account=[];
   Future<void>fetchData()async {
     isLoading=true;
     update();
-    print(isLoading);
-    await  Future.delayed(Duration(seconds: 10));
+    account = await  homeRepository.getAccount();
     isLoading=false;
     update();
-    print(isLoading);
+
   }
   @override
   void onInit() {

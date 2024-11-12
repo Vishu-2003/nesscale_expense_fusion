@@ -64,6 +64,7 @@ class Signup extends StatelessWidget {
                           SizedBox(height: 15,),
                           Obx(()=> CTextField(
                             hintText: 'Password',
+                            controller: controller.password,
                             validator: (value)=>AppValidator.passwordValidator(value,errorMessage: 'Please create password'),
                             textInputAction: TextInputAction.done,
                             obscureText: controller.obscurePassword.value,
@@ -79,14 +80,15 @@ class Signup extends StatelessWidget {
                           ),),
                           SizedBox(height: 15,),
                           Obx(()=> CTextField(
-                            controller: controller.password,
+                            controller: controller.coPassword,
                             textInputAction: TextInputAction.done,
-                            hintText: ' Confirm password',
+                            hintText: 'Confirm password',
                             validator: (value){
-                              if(value!.isEmpty)return ' Enter confirm  password';
-                              if(value!=controller.password.text){
+                              if(value!.isEmpty)return'Enter confirm  password';
+                              else if(value!=controller.password.text){
                                 return  "Password doesn't match";
                               }
+                              return null;
                             },
                             obscureText: controller.obscureConfirmPassword.value,
                             suffixIcon: selectIcon(
@@ -103,6 +105,7 @@ class Signup extends StatelessWidget {
                             padding: EdgeInsets.only(top: 10,right: 16,left: 16,bottom: 10),
                             child: ElevatedButton(
                               onPressed: () {
+                                print(controller.password.text);
                                 controller.signUp();
                               },
                               style: ElevatedButton.styleFrom(

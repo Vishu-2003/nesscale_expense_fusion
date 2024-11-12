@@ -488,6 +488,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.2"
+  shrink_animation_button:
+    dependency: "direct main"
+    description:
+      name: shrink_animation_button
+      sha256: "382ada2ed22d5b2579704cd0189eb0e68dcaea19a3a59f8afc24bd40e05b09f4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   sky_engine:
     dependency: transitive
     description: flutter

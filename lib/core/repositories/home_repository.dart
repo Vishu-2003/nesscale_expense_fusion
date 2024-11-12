@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../models/Get_Transaction_model.dart';
 import '../models/get_account_model.dart';
 import '../models/get_space_model.dart';
 import '../models/post_expense_model.dart';
@@ -45,9 +46,45 @@ class HomeRepository with BaseServices{
       debugPrint(e.toString());
     }return null;
   }
-  Future<GetResponseModel?>addAccount({required String account,required String amount}) async {
+  Future<GetResponseModel?>addAccount({required String account,required String amount,required String space}) async {
     try{
-      return await _homeProvider.addAccount(account: account, amount: amount);
+      return await _homeProvider.addAccount(account: account, amount: amount, space:space);
+    }on BadResponseException catch(e){
+      e.message?.errorSnackbar();
+    }catch(e){
+      debugPrint(e.toString());
+    }return null;
+  }
+  Future<GetResponseModel?>deleteAccount({required String accountName,required String space}) async {
+    try{
+      return await _homeProvider.deleteAccount(accountName:accountName,space:space);
+    }on BadResponseException catch(e){
+      e.message?.errorSnackbar();
+    }catch(e){
+      debugPrint(e.toString());
+    }return null;
+  }
+  Future<GetResponseModel?>deleteIncome({required String income}) async {
+    try{
+      return await _homeProvider.deleteIncome(income: income);
+    }on BadResponseException catch(e){
+      e.message?.errorSnackbar();
+    }catch(e){
+      debugPrint(e.toString());
+    }return null;
+  }
+  Future<GetResponseModel?>deleteExpense({required String expense}) async {
+    try{
+      return await _homeProvider.deleteExpense(expense: expense);
+    }on BadResponseException catch(e){
+      e.message?.errorSnackbar();
+    }catch(e){
+      debugPrint(e.toString());
+    }return null;
+  }
+  Future<GetResponseModel?>updateAccount({required String accountName,required String space,required String newAccountName,required String amount}) async {
+    try{
+      return await _homeProvider.updateAccount(space: space, accountName: accountName, newAccountName: newAccountName, amount: amount);
     }on BadResponseException catch(e){
       e.message?.errorSnackbar();
     }catch(e){
@@ -76,5 +113,22 @@ class HomeRepository with BaseServices{
       );
       return (response.data['data']as List).map((c)=>GetAccountModel.fromJson(c)).toList();
     });}
+  Future<List<GetTransactionModel>>getTransaction({required String space,required String duration})async{
+    return tryOrCatch<List<GetTransactionModel>>(()async{
+      final response =await dio.get(
+          "/api/method/expense_fusion.api$apiVersion",
+          data: {
+            "type": "get_transactions",
+            "space_filter": space,
+            "duration_filter":duration
+          },
+          options: Options(extra: requiresToken)
+      );
+      final responseData = response.data['data'];
+      List<GetTransactionModel> allTransactions = parseTransactions(responseData);
+      return allTransactions;
+    });
+
+  }
 
 }

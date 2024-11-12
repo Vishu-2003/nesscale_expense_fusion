@@ -13,14 +13,14 @@ class SignupController extends GetxController{
   final AuthRepository _authRepository=Get.find<AuthRepository>();
   TextEditingController userName=TextEditingController();
   TextEditingController password=TextEditingController();
-  TextEditingController Copassword=TextEditingController();
+  TextEditingController coPassword=TextEditingController();
   TextEditingController email=TextEditingController();
   TextEditingController number=TextEditingController();
   GlobalKey<FormState>  signUpKey=GlobalKey<FormState>();
   RxBool obscurePassword=true.obs;
   RxBool obscureConfirmPassword=true.obs;
   Future<void>signUp()async {
-  if(signUpKey.currentState?.validate() ?? false){
+  if(signUpKey.currentState?.validate()??false){
     Get.context?.loaderOverlay.show();
     PostCreateNewUserModel newUser=PostCreateNewUserModel(
         name: userName.text.trim(),
@@ -31,7 +31,7 @@ class SignupController extends GetxController{
     Get.context?.loaderOverlay.hide();
     if(response?.message!=null){
      await response?.message?.successSnackbar();
-     Get.toNamed(Routes.Login);
+     Get.offNamed(Routes.Login);
     }
   }
   }

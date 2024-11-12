@@ -12,7 +12,7 @@ Future<void>addSpace()async{
   GetResponseModel? userSpace = await _homeRepository.addSpace(space: space.text.trim());
    if(userSpace?.message!=null){
    await userSpace?.message?.successSnackbar();
-   Get.offNamed(Routes.AddAccount);
+   Get.back();
   }
 }
 }

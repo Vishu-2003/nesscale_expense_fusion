@@ -6,7 +6,9 @@ import 'package:intl/intl.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shimmer/shimmer.dart';
 import 'dart:math' as math;
+import '../design/components/c_text.dart';
 import 'app_colors.dart';
+import 'app_text_theme.dart';
 
 extension BuildContextExtension on BuildContext{
   double get topPadding => math.max(statusBarHeight + 15, 15);
@@ -20,7 +22,7 @@ extension BuildContextExtension on BuildContext{
 
 extension DateTimeE7n on DateTime {
   /// dd-MM-yyyy
-  String get getDefaultDateFormat => DateFormat('dd-MM-yyyy').format(this);
+  String get getDefaultDateFormat => DateFormat('yyyy-MM-dd').format(this);
 }
 
 extension WidgetExtension on Widget {
@@ -47,7 +49,9 @@ extension WidgetExtension on Widget {
         ),
       ),
     );
+
   }
+
 
 
   Widget showShimmer({Color? color})
@@ -90,9 +94,55 @@ extension StringExtension on String{
       );
   }
 
+ dynamic showAlert(){
+    Get.dialog(AlertDialog(
+      title: CText('Alert  !',style: TextThemeX.text16.copyWith(color: bg)),
+      content:CText(this,style: TextThemeX.text16.copyWith(color: bg)),
+      backgroundColor:LightPrimarycolor,
+      actions: [
+        TextButton(onPressed: (){Get.back();}, child:CText('Ok', style: TextThemeX.text16.copyWith(color: bg)))
+      ],
+
+    ));
+  }
+
 }
 extension ResponseExt on Response{
   bool get isSuccess => statusCode! >= 200 || statusCode! < 300;
+}
+extension ColumnAnimationExtension on Column {
+  Widget columAnimation({
+    double? verticalOffset,
+    double? horizontalOffset,
+    Duration? delay = const Duration(milliseconds: 0),
+  }) {
+    List<Widget> animatedChildren = [];
+
+    for (int i = 0; i < children.length; i++) {
+      animatedChildren.add(
+        AnimationConfiguration.staggeredList(
+          position: i,
+          child: FadeInAnimation(
+            delay: Duration(milliseconds: i * 100), // Staggered delay
+            duration: const Duration(milliseconds: 400),
+            curve: Curves.decelerate,
+            child: SlideAnimation(
+              delay: Duration(milliseconds: i * 100),
+              duration: const Duration(milliseconds: 400),
+              curve: Curves.decelerate,
+              horizontalOffset: horizontalOffset,
+              verticalOffset: verticalOffset ?? -40.0,
+              child: children[i],
+            ),
+          ),
+        ),
+      );
+    }
+
+    return Column(
+      children: animatedChildren,
+    );
+  }
 }
 
 
