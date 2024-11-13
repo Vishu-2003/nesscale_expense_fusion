@@ -16,7 +16,7 @@ class LoggingInterceptor implements Interceptor {
     if (options.data != null) {
       debugPrint("Body: ${options.data}");
     }
-   // practicing git 
+   // practicing git
     debugPrint("--> END ${options.method.toUpperCase()}");
 
     return handler.next(options);

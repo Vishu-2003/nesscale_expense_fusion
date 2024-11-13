@@ -69,7 +69,7 @@ class _spacesaccountState extends State<spacesaccount> {
                         )),
                     _buildbutton(
                       ontap: () {
-                       Get.toNamed(Routes.AddAccount);
+                       Get.offNamed(Routes.AddAccount);
                       },
                       text: 'Add Account',
                       color: LightPrimarycolor,

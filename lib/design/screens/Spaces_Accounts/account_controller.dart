@@ -19,7 +19,7 @@ class AccountController extends GetxController{
   TextEditingController spaceController=TextEditingController();
   TextEditingController amountController=TextEditingController();
   TextEditingController accountController=TextEditingController();
-  String selectedSpace= 'select Space';
+  String selectedSpace= 'Select Space';
   void updateSelectedSpace(String account){
     spaceController.text=account;
     selectedSpace=account;
